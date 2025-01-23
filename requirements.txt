@@ -3,3 +3,5 @@ matplotlib
 seaborn
 IPython
 ipykernel
+pydot
+graphviz

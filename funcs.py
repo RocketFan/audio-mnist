@@ -2,11 +2,11 @@ import tensorflow as tf
 import pathlib
 import os
 import numpy as np
-
-# Save audio to file with aim of listening to it
+import shutil
 
 
 def getAudio(waveforms, dir_name, kfreq):
+    # Save audio to file with aim of listening to it
     audio_path = pathlib.Path('audio/audio_' + str(dir_name))
     if audio_path.exists():
         shutil.rmtree(audio_path)
@@ -19,10 +19,9 @@ def getAudio(waveforms, dir_name, kfreq):
         waveform = tf.audio.encode_wav(waveform, kfreq * 1000)
         tf.io.write_file('{}/{}_{}.wav'.format(audio_path, i, label), waveform)
 
-# Find file with maximum audio length
-
 
 def find_max_len(dataset):
+    # Find file with maximum audio length
     audio_max_len = 0
     audio_max = 0
     dataset = dataset.enumerate()
@@ -40,14 +39,14 @@ def decode_audio(audio_binary):
     audio, _ = tf.audio.decode_wav(audio_binary)
     return tf.squeeze(audio, axis=-1)
 
-# Get label of file from our particular data
-
 
 def get_label(file_path):
-  parts = tf.strings.split(file_path, '/')
-  label = tf.strings.split(parts, '_')
-  return label[-1][0]
-  
+    # Get label of file from our particular data
+    parts = tf.strings.split(file_path, '/')
+    label = tf.strings.split(parts, '_')
+    return label[-1][0]
+
+
 def get_waveform_and_label(file_path):
     label = get_label(file_path)
     audio_binary = tf.io.read_file(file_path)
@@ -79,7 +78,7 @@ def get_spectrogram_and_label_id(audio, label):
 def plot_spectrogram(spectrogram, ax):
     # Convert to frequencies to log scale and transpose so that the time is
     # represented in the x-axis (columns).
-    
+
     log_spec = np.log(spectrogram.T)
     width = 48000 / log_spec.shape[1]
     X = np.arange(48000, step=width)
