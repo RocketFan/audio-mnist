@@ -74,10 +74,9 @@ def get_spectrogram_and_label_id(audio, label):
     label_id = tf.strings.to_number(label, out_type=tf.int32)
     return spectrogram, label_id
 
-
 def plot_spectrogram(spectrogram, ax):
     # Convert to frequencies to log scale and transpose so that the time is
-    # represented in the x-axis (columns).
+    # represented in the x-axis (columns) and plot.
 
     log_spec = np.log(spectrogram.T)
     width = 48000 / log_spec.shape[1]

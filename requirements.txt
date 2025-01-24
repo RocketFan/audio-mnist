@@ -5,3 +5,4 @@ IPython
 ipykernel
 pydot
 graphviz
+shap
