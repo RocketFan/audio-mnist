@@ -5,21 +5,6 @@ import numpy as np
 import shutil
 
 
-def getAudio(waveforms, dir_name, kfreq):
-    # Save audio to file with aim of listening to it
-    audio_path = pathlib.Path('audio/audio_' + str(dir_name))
-    if audio_path.exists():
-        shutil.rmtree(audio_path)
-    os.mkdir(audio_path)
-
-    for i, (waveform, label) in enumerate(waveforms):
-        label = label.numpy().decode('utf-8') if type(label) != str else label
-        wave_len = tf.shape(waveform)[0]
-        waveform = tf.reshape(waveform, (wave_len, 1))
-        waveform = tf.audio.encode_wav(waveform, kfreq * 1000)
-        tf.io.write_file('{}/{}_{}.wav'.format(audio_path, i, label), waveform)
-
-
 def find_max_len(dataset):
     # Find file with maximum audio length
     audio_max_len = 0
@@ -73,6 +58,7 @@ def get_spectrogram_and_label_id(audio, label):
     spectrogram = tf.expand_dims(spectrogram, -1)
     label_id = tf.strings.to_number(label, out_type=tf.int32)
     return spectrogram, label_id
+
 
 def plot_spectrogram(spectrogram, ax):
     # Convert to frequencies to log scale and transpose so that the time is
