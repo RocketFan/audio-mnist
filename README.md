@@ -37,4 +37,5 @@ python3 split_data.py
 ### Notebooks
 - `train.ipynb`: Training the model, saving the model and evaluating it
 - `demo.ipynb`: Demo of the model, loading the model from `saved_models` and predicting on `data_demo` samples
+- `data_distribution.ipynb`: Visualizing the data distribution
 
