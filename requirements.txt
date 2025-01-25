@@ -1,4 +1,3 @@
-librosa
 matplotlib
 seaborn
 IPython

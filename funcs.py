@@ -1,8 +1,5 @@
 import tensorflow as tf
-import pathlib
-import os
 import numpy as np
-import shutil
 
 
 def find_max_len(dataset):
